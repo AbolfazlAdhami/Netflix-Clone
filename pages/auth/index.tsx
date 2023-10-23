@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import Input from "@/components/Input";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const Auth = () => {
   const [variant, setVariant] = useState("login");
@@ -19,19 +21,35 @@ const Auth = () => {
   }, []);
 
   return (
-    <div className="relative w-full  h-full bg-[url('/images/hero.jpg')] bg-fixed bg-center bg-no-repeat bg-cover ">
-      <div className="bg-black w-full h-full lg:bg-opacity-50">
-        <nav className=" px-12 py-6">
+    <div className="relative w-full h-full  bg-[url('/images/hero.jpg')] bg-fixed bg-center bg-no-repeat bg-cover ">
+      <div className="bg-black w-full h-full md:bg-opacity-50">
+        <nav className=" px-12 py-3">
           <Image src="/images/logo.png" alt="logoImage" height={200} width={200} />
         </nav>
         <div className="flex justify-center">
-          <div className="bg-black bg-opacity-80 p-14 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+          <div className="bg-black bg-opacity-70 p-14 self-center mt-1 md:w-3/5 lg:w-1/2 lg:max-w-md rounded-lg w-full">
             <h2 className="text-white text-3xl mb-8 font-semibold">{variant === "login" ? "Sing in" : "Regester"}</h2>
             <div className="flex flex-col gap-4">
               {inputForm.map((item) => (
                 <>{variant == "login" && item.id == "name" ? null : <Input key={item.id} {...item} />}</>
               ))}
             </div>
+            <button className="bg-red-500 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition-all duration-75">{variant == "login" ? "Login" : "Sing up"}</button>
+            <div className="flex flex-row justify-center items-center mt-6 gap-4">
+              <div className="w-10 h-10 rounded-full bg-white flex justify-center items-center cursor-pointer hover:bg-opacity-70 transition-all duration-75">
+                <FaGithub size={30} />
+              </div>
+              <div className="w-10 h-10 rounded-full bg-white flex justify-center items-center cursor-pointer hover:bg-opacity-70 transition-all duration-75">
+                <FcGoogle size={30} />
+              </div>
+            </div>
+            <p className="text-neutral-500 mt-8 ">
+              {variant === "login" ? "Frist time to using Netflix?" : "Already have an cccount?"}
+              <span className="text-white ml-1 hover:underline cursor-pointer" onClick={toggleVariant}>
+                {variant === "login" ? "Create acctount" : "Login"}
+              </span>
+              .
+            </p>
           </div>
         </div>
       </div>
