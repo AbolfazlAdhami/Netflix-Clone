@@ -1,15 +1,17 @@
 import React, { useCallback, useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import Input from "@/components/Input";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-
+import { useRouter } from "next/router";
+import { getSession, signIn } from "next-auth/react";
 const Auth = () => {
   const [variant, setVariant] = useState("login");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const inputForm = [
     { id: "email", onChange: (e: any) => setEmail(e.target.value), value: email, label: "Email", type: "email" },
     { id: "name", onChange: (e: any) => setName(e.target.value), value: name, label: "User Name", type: "text" },
@@ -19,6 +21,15 @@ const Auth = () => {
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) => (currentVariant == "login" ? "regester" : "login"));
   }, []);
+  const regester = useCallback(() => {}, []);
+  const login = useCallback(async () => {
+    try {
+      await signIn("credentials", { email, password, callbackUrl: "/", redirect: false });
+      router.push("/profile");
+    } catch (error) {
+      console.log(error);
+    }
+  }, [email, password, router]);
 
   return (
     <div className="relative w-full h-full  bg-[url('/images/hero.jpg')] bg-fixed bg-center bg-no-repeat bg-cover ">
@@ -34,7 +45,9 @@ const Auth = () => {
                 <>{variant == "login" && item.id == "name" ? null : <Input key={item.id} {...item} />}</>
               ))}
             </div>
-            <button className="bg-red-500 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition-all duration-75">{variant == "login" ? "Login" : "Sing up"}</button>
+            <button type="button" onClick={variant === "login" ? login : regester} className="bg-red-500 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition-all duration-75">
+              {variant == "login" ? "Login" : "Sing up"}
+            </button>
             <div className="flex flex-row justify-center items-center mt-6 gap-4">
               <div className="w-10 h-10 rounded-full bg-white flex justify-center items-center cursor-pointer hover:bg-opacity-70 transition-all duration-75">
                 <FaGithub size={30} />
