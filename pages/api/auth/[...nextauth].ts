@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import prismadb from "@/libs/prismasb";
-import bcrypt from "bcrypt";
+import { bcrypt } from "bcrypt";
 
 export default NextAuth({
   providers: [
