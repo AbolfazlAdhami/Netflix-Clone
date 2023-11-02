@@ -21,7 +21,6 @@ const Auth = () => {
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) => (currentVariant == "login" ? "regester" : "login"));
   }, []);
-  const regester = useCallback(() => {}, []);
   const login = useCallback(async () => {
     try {
       await signIn("credentials", { email, password, callbackUrl: "/", redirect: false });
@@ -30,6 +29,14 @@ const Auth = () => {
       console.log(error);
     }
   }, [email, password, router]);
+  const regester = useCallback(async () => {
+    try {
+      await axios.post("/api/regester", { email, name, password });
+      login();
+    } catch (err) {
+      console.log(err);
+    }
+  }, [email, name, password, login]);
 
   return (
     <div className="relative w-full h-full  bg-[url('/images/hero.jpg')] bg-fixed bg-center bg-no-repeat bg-cover ">
@@ -41,8 +48,8 @@ const Auth = () => {
           <div className="bg-black bg-opacity-70 p-14 self-center mt-1 md:w-3/5 lg:w-1/2 lg:max-w-md rounded-lg w-full">
             <h2 className="text-white text-3xl mb-8 font-semibold">{variant === "login" ? "Sing in" : "Regester"}</h2>
             <div className="flex flex-col gap-4">
-              {inputForm.map((item) => (
-                <>{variant == "login" && item.id == "name" ? null : <Input key={item.id} {...item} />}</>
+              {inputForm.map((item, index) => (
+                <div key={index}>{variant == "login" && item.id == "name" ? null : <Input key={item.id} {...item} />}</div>
               ))}
             </div>
             <button type="button" onClick={variant === "login" ? login : regester} className="bg-red-500 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition-all duration-75">
