@@ -13,8 +13,8 @@ datasource db {
 model User {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   name           String
-  Avatar         String?
   email          String?   @unique
+  avatar         String?
   emailVeriifed  DateTime?
   hashedPassword String?
   createdAt      DateTime  @default(now())

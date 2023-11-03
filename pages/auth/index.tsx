@@ -5,19 +5,24 @@ import Input from "@/components/Input";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/router";
-import { getSession, signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 const Auth = () => {
   const [variant, setVariant] = useState("login");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+
   const inputForm = [
     { id: "email", onChange: (e: any) => setEmail(e.target.value), value: email, label: "Email", type: "email" },
     { id: "name", onChange: (e: any) => setName(e.target.value), value: name, label: "User Name", type: "text" },
     { id: "password", onChange: (e: any) => setPassword(e.target.value), value: password, label: "Password", type: "password" },
   ];
-
+  const resetValue = () => {
+    setEmail("");
+    setName("");
+    setPassword("");
+  };
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) => (currentVariant == "login" ? "regester" : "login"));
   }, []);
@@ -25,8 +30,11 @@ const Auth = () => {
     try {
       await signIn("credentials", { email, password, callbackUrl: "/", redirect: false });
       router.push("/profile");
+
+      resetValue();
     } catch (error) {
       console.log(error);
+      resetValue();
     }
   }, [email, password, router]);
   const regester = useCallback(async () => {
@@ -35,9 +43,9 @@ const Auth = () => {
       login();
     } catch (err) {
       console.log(err);
+      resetValue();
     }
   }, [email, name, password, login]);
-
   return (
     <div className="relative w-full h-full  bg-[url('/images/hero.jpg')] bg-fixed bg-center bg-no-repeat bg-cover ">
       <div className="bg-black w-full h-full md:bg-opacity-50">
@@ -56,10 +64,10 @@ const Auth = () => {
               {variant == "login" ? "Login" : "Sing up"}
             </button>
             <div className="flex flex-row justify-center items-center mt-6 gap-4">
-              <div className="w-10 h-10 rounded-full bg-white flex justify-center items-center cursor-pointer hover:bg-opacity-70 transition-all duration-75">
+              <div onClick={() => signIn("github", { callbackUrl: "/profile" })} className="w-10 h-10 rounded-full bg-white flex justify-center items-center cursor-pointer hover:bg-opacity-70 transition-all duration-75">
                 <FaGithub size={30} />
               </div>
-              <div className="w-10 h-10 rounded-full bg-white flex justify-center items-center cursor-pointer hover:bg-opacity-70 transition-all duration-75">
+              <div onClick={() => signIn("google", { callbackUrl: "/profile" })} className="w-10 h-10 rounded-full bg-white flex justify-center items-center cursor-pointer hover:bg-opacity-70 transition-all duration-75">
                 <FcGoogle size={30} />
               </div>
             </div>

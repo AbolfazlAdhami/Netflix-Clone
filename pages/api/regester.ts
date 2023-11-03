@@ -17,13 +17,7 @@ export default async function hndler(req: NextApiRequest, res: NextApiResponse) 
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await prismadb.user.create({
-      data: {
-        email,
-        name,
-        hashedPassword,
-        Avatar: "",
-        emailVeriifed: new Date(),
-      },
+      data: { name, email, hashedPassword, avatar: "", emailVeriifed: new Date() },
     });
     return res.status(200).json(user);
   } catch (error) {
