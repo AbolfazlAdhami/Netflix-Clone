@@ -16,7 +16,7 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
   });
   if (!currentUser) throw new Error("Not Singed in");
 
-  return { currentUser };
+  return currentUser;
 };
 
 export default serverAuth;
