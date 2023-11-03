@@ -5,7 +5,7 @@ import Input from "@/components/Input";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/router";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 const Auth = () => {
   const [variant, setVariant] = useState("login");
   const [email, setEmail] = useState("");
@@ -46,6 +46,7 @@ const Auth = () => {
       resetValue();
     }
   }, [email, name, password, login]);
+
   return (
     <div className="relative w-full h-full  bg-[url('/images/hero.jpg')] bg-fixed bg-center bg-no-repeat bg-cover ">
       <div className="bg-black w-full h-full md:bg-opacity-50">
