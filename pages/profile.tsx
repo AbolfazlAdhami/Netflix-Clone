@@ -1,10 +1,13 @@
 import React, { useCallback } from "react";
 import { useRouter } from "next/router";
 import { NextPageContext } from "next";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import Image from "next/image";
+interface UserCardProps {
+  name: string;
+}
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
