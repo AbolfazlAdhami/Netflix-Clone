@@ -1,9 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import NavbarItem from "./NavbarItems";
 import MobileMenu from "./MobileMenu";
 import AccountMenu from "./AccountMenu";
+
+const Top_Offset = 60;
 
 function Navbar() {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -12,6 +14,22 @@ function Navbar() {
 
   const toggleMobileMenu = useCallback(() => setShowMobileMenu((current) => !current), []);
   const toggleAccountMenu = useCallback(() => setShowAccountMenu((current) => !current), []);
+  const handleScroll = () => {
+    const { scrollY } = window;
+    console.log(scrollY);
+    if (scrollY >= Top_Offset) {
+      setShowBackground(true);
+      return;
+    }
+    setShowBackground(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const pages = [
     { label: "Home", href: "/" },
@@ -24,7 +42,7 @@ function Navbar() {
 
   return (
     <nav className="w-full fixed z-40">
-      <div className="px-4 md:px-16 py-4 flex items-center transition-all duration-500 ease-in bg-zinc-900 bg-opacity-90">
+      <div className={`px-4 md:px-16 py-4 flex items-center transition-all duration-500 ease-in ${showBackgroundm ? "bg-zinc-900 bg-opacity-90" : ""}`}>
         <img className="h-10 lg:h-12" src={"/images/logo.png"} alt="" />
         <div className="flex-row ml-8 gap-6 hidden lg:flex">
           {pages.map((page, index) => (
