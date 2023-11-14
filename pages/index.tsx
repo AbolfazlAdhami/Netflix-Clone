@@ -1,7 +1,16 @@
-import Billboard from "@/components/Billboard";
-import Navbar from "@/components/Navbar";
 import { NextPageContext } from "next";
-import { signOut, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+// Coustom hookes
+import useMoviesList from "@/hooks/useMovieList";
+// Coustom Componets
+// import Billboard from "";
+import Navbar from "@/components/Navbar";
+
+import dynamic from "next/dynamic";
+
+const DynamicBillboard = dynamic(() => import("@/components/Billboard"), {
+  loading: () => <p>Loading...</p>,
+});
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -20,10 +29,13 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
+  const { data } = useMoviesList();
+  console.log(data);
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between text-white `}>
       <Navbar />
-      <Billboard />
+      <DynamicBillboard />
+      <div className="py-20"></div>
     </main>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 interface PlayButtonProps {
-  movieId: string;
+  movieId: string | undefined;
 }
 
 const PlayButoon: React.FC<PlayButtonProps> = ({ movieId }) => {
