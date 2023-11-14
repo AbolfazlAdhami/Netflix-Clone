@@ -16,7 +16,7 @@ function Navbar() {
   const toggleAccountMenu = useCallback(() => setShowAccountMenu((current) => !current), []);
   const handleScroll = () => {
     const { scrollY } = window;
-    console.log(scrollY);
+
     if (scrollY >= Top_Offset) {
       setShowBackground(true);
       return;
