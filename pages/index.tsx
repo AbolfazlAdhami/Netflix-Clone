@@ -7,6 +7,7 @@ import useMoviesList from "@/hooks/useMovieList";
 import Navbar from "@/components/Navbar";
 
 import dynamic from "next/dynamic";
+import MovieList from "@/components/MovieList";
 
 const DynamicBillboard = dynamic(() => import("@/components/Billboard"), {
   loading: () => <p>Loading...</p>,
@@ -29,13 +30,15 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
-  const { data } = useMoviesList();
-  console.log(data);
+  const { data: trendList } = useMoviesList();
+
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between text-white `}>
       <Navbar />
       <DynamicBillboard />
-      <div className="py-20"></div>
+      <div className="py-2 w-full">
+        <MovieList data={trendList} title="Trending Today" />
+      </div>
     </main>
   );
 }
