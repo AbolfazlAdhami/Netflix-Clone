@@ -29,7 +29,10 @@ const Billboard: React.FC = () => {
         {!isLoading && (
           <div className="flex flex-row items-center mt-3 md:mt-5 gap-3">
             <PlayButoon movieId={movie?.id} />
-            <button onClick={handleOpenModal} className=" bg-gray-100 text-white bg-opacity-70 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex items-center hover:bg-opacity-20 transition">
+            <button
+              onClick={handleOpenModal}
+              className=" bg-gray-100 text-white bg-opacity-70 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex items-center hover:bg-opacity-20 transition"
+            >
               <InformationCircleIcon className="w-4 md:w-8 mr-1" />
               More Info
             </button>

@@ -2,6 +2,7 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 // Coustom hookes
 import useMoviesList from "@/hooks/useMovieList";
+import useFavotites from "@/hooks/useFavorites";
 // Coustom Componets
 // import Billboard from "";
 import Navbar from "@/components/Navbar";
@@ -31,13 +32,15 @@ export async function getServerSideProps(context: NextPageContext) {
 
 export default function Home() {
   const { data: trendList } = useMoviesList();
-
+  const { data: favoriteList } = useFavotites();
+  console.log(favoriteList);
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between text-white `}>
       <Navbar />
       <DynamicBillboard />
-      <div className="py-2 w-full">
+      <div className="my-6 pb-24 w-full">
         <MovieList data={trendList} title="Trending Today" />
+        <MovieList data={favoriteList} title="Favorite List" />
       </div>
     </main>
   );
