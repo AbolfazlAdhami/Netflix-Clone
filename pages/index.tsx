@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 // Coustom hookes
@@ -33,15 +35,20 @@ export async function getServerSideProps(context: NextPageContext) {
 export default function Home() {
   const { data: trendList } = useMoviesList();
   const { data: favoriteList } = useFavotites();
-  console.log(favoriteList);
+
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between text-white `}>
-      <Navbar />
-      <DynamicBillboard />
-      <div className="my-6 pb-24 w-full">
-        <MovieList data={trendList} title="Trending Today" />
-        <MovieList data={favoriteList} title="Favorite List" />
-      </div>
-    </main>
+    <>
+      <Head>
+        <title>Nefflix App</title>
+      </Head>
+      <main className={`flex min-h-screen flex-col items-center justify-between text-white `}>
+        <Navbar />
+        <DynamicBillboard />
+        <div className="my-6 pb-24 w-full">
+          <MovieList data={trendList} title="Trending Today" />
+          <MovieList data={favoriteList} title="Favorite List" />
+        </div>
+      </main>
+    </>
   );
 }

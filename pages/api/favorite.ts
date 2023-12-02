@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           id: movieId,
         },
       });
-      console.log(existingMovie);
+
       if (!existingMovie) throw new Error("Invalid id");
 
       const user = await prismadb.user.update({
@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         },
       });
-      console.log(user);
+
       return res.status(200).json(user);
     }
     if (method == "DELETE") {

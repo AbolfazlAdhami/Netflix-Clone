@@ -7,7 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     await serverAuth(req, res);
     const movies = await prismadb.movie.findMany();
-    console.log(movies);
     return res.status(200).json(movies);
   } catch (error) {
     console.log({ error });
