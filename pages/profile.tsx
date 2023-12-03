@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { useCallback } from "react";
 import { useRouter } from "next/router";
 import { NextPageContext } from "next";
@@ -46,16 +47,21 @@ const Profile = () => {
   const selectProfile = useCallback(() => router.push("/"), [router]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="flex flex-col">
-        <h1 className="text-3xl md:text-6xl text-white text-center">Who&#39;s wtching?</h1>
-        <div className="flex items-center justify-center gap-8 mt-10">
-          <div onClick={selectProfile}>
-            <UserCard name={currentUser?.name} />
+    <>
+      <Head>
+        <title>Profile {currentUser?.name} User</title>
+      </Head>
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="flex flex-col">
+          <h1 className="text-3xl md:text-6xl text-white text-center">Who&#39;s wtching?</h1>
+          <div className="flex items-center justify-center gap-8 mt-10">
+            <div onClick={selectProfile}>
+              <UserCard name={currentUser?.name} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ const Billboard: React.FC = () => {
 
   return (
     <div className="relative w-full h-[50vw]">
-      <video poster={movie?.thumbnailUrl} className="w-full h-full object-cover brightness-[80%] transition duration-500" src={movie?.videoUrl} muted loop></video>
+      <video autoPlay poster={movie?.thumbnailUrl} className="w-full h-full object-cover brightness-[80%] transition duration-500" src={movie?.videoUrl} muted loop></video>
       <div className="absolute top-[30%] md:top-[50%] ml-4 md:ml-8">
         <p className="text-white text-xl md:text-3xl h-full w-1/2 lg:text-4xl font-bold drop-shadow-xl">{movie?.title}</p>
         <p className="text-white text-[8px]  capitalize md:text-lg h-full mt-2 md:mt-4 w-1/2 md:w-4/5 lg:w-1/2  lg:text-xl  drop-shadow-xl">{movie?.description}</p>
