@@ -7,7 +7,7 @@ import PlayButoon from "./PlayButton";
 import FavoriteButton from "./FavoriteButton";
 
 interface InfoModalProps {
-  visible?: boolean;
+  visible?: Boolean;
   onClose: any;
 }
 
