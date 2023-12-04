@@ -11,6 +11,8 @@ import Navbar from "@/components/Navbar";
 
 import dynamic from "next/dynamic";
 import MovieList from "@/components/MovieList";
+import useInfoModalStore from "@/hooks/useInfoModalStore";
+import InfoModal from "@/components/infoModal";
 
 const DynamicBillboard = dynamic(() => import("@/components/Billboard"), {
   loading: () => <p>Loading...</p>,
@@ -35,6 +37,7 @@ export async function getServerSideProps(context: NextPageContext) {
 export default function Home() {
   const { data: trendList } = useMoviesList();
   const { data: favoriteList } = useFavotites();
+  const { isOpen, closeModal } = useInfoModalStore();
 
   return (
     <>
@@ -42,6 +45,7 @@ export default function Home() {
         <title>Nefflix App</title>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between text-white `}>
+        <InfoModal onClose={closeModal} visible={isOpen} />
         <Navbar />
         <DynamicBillboard />
         <div className="my-6 pb-24 w-full">

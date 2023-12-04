@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 
 const Auth = () => {
-  const [variant, setVariant] = useState("login");
+  const [variant, setVariant] = useState("Login");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +28,7 @@ const Auth = () => {
   };
   // chage state of form Login/Singin
   const toggleVariant = useCallback(() => {
-    setVariant((currentVariant) => (currentVariant == "login" ? "regester" : "login"));
+    setVariant((currentVariant) => (currentVariant == "Login" ? "Regester" : "Login"));
   }, []);
   const login = useCallback(async () => {
     try {
@@ -54,7 +54,7 @@ const Auth = () => {
   return (
     <>
       <Head>
-        <title>{variant.toUpperCase()} Page</title>
+        <title>{variant} Page</title>
       </Head>
       <div className="relative w-full h-full  bg-[url('/images/hero.jpg')] bg-fixed bg-center bg-no-repeat bg-cover ">
         <div className="bg-black w-full h-full md:bg-opacity-50">
@@ -63,14 +63,14 @@ const Auth = () => {
           </nav>
           <div className="flex justify-center">
             <div className="bg-black bg-opacity-70 p-14 self-center mt-1 md:w-3/5 lg:w-1/2 lg:max-w-md rounded-lg w-full">
-              <h2 className="text-white text-3xl mb-8 font-semibold">{variant === "login" ? "Sing in" : "Regester"}</h2>
+              <h2 className="text-white text-3xl mb-8 font-semibold">{variant === "Login" ? "Sing in" : "Regester"}</h2>
               <div className="flex flex-col gap-4">
                 {inputForm.map((item, index) => (
-                  <div key={index}>{variant == "login" && item.id == "name" ? null : <Input key={item.id} {...item} />}</div>
+                  <div key={index}>{variant == "Login" && item.id == "name" ? null : <Input key={item.id} {...item} />}</div>
                 ))}
               </div>
-              <button type="button" onClick={variant === "login" ? login : regester} className="bg-red-500 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition-all duration-75">
-                {variant == "login" ? "Login" : "Sing up"}
+              <button type="button" onClick={variant === "Login" ? login : regester} className="bg-red-500 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition-all duration-75">
+                {variant == "Login" ? "Login" : "Sing up"}
               </button>
               <div className="flex flex-row justify-center items-center mt-6 gap-4">
                 <div
@@ -89,7 +89,7 @@ const Auth = () => {
               <p className="text-neutral-500 mt-8 ">
                 {variant === "login" ? "Frist time to using Netflix?" : "Already have an cccount?"}
                 <span className="text-white ml-1 hover:underline cursor-pointer" onClick={toggleVariant}>
-                  {variant === "login" ? "Create acctount" : "Login"}
+                  {variant === "Login" ? "Create acctount" : "Login"}
                 </span>
                 .
               </p>
